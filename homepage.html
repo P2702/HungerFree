@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        /* use Flask static path */
+        background: url("/static/Images/foodbg.jpg") no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    .page-wrapper {
+        background: rgba(255, 255, 255, 0); /* Transparent so bg looks clear */
+        backdrop-filter: none; /* Remove blur from whole page */
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    #sidebar {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        background: rgba(47, 107, 87, 0.95);
+        padding-top: 20px;
+        transition: 0.3s;
+        box-shadow: 2px 0px 10px rgba(0,0,0,0.3);
+        z-index: 10;
+    }
+
+    #sidebar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    #sidebar a:hover {
+        background: rgba(0,0,0,0.2);
+    }
+
+    /* Top Bar */
+    .topbar {
+        background: #d7f0e5;
+        padding: 10px 20px;
+        font-size: 22px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 3px 8px rgba(0,0,0,0.2);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: 0.3s;
+        z-index: 5;
+    }
+
+    .menu-btn {
+        font-size: 26px;
+        margin-right: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #0c3635;
+    }
+
+    /* Main Content */
+    #content {
+        transition: 0.3s;
+        padding: 30px;
+        padding-top: 90px;
+    }
+
+    /* Cards Area */
+    .container {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        width: 280px;
+        padding: 25px;
+        background: rgba(255,255,255,0.4); /* Glass effect background */
+        border-radius: 14px;
+        box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
+        text-align: center;
+        backdrop-filter: blur(10px); /* Blur only cards */
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+        color: #0c3635;
+        font-size: 22px;
+    }
+
+    .card p {
+        color: #31493b;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background: #2f6b57;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 17px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background: #245343;
+    }
+    </style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2><center>Dashboard</center></h2>
+        <a href="/donate_food">Donate Food</a>
+        <a href="/find_ngos">Find NGOs</a>
+        <a href="/my_donations">My Donations</a>
+        <a href="/donations_status">Donations_status</a>
+        <a href="/profile">Profile</a>
+        <a href="/contact">Contact</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="topbar" id="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+        Welcome, {{ name }}
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <div class="container">
+
+            <div class="card">
+                <h3>Donate Food</h3>
+                <p>Give leftover or fresh meals to people in need.</p>
+                <a href="/donate_food" class="btn">Donate Now</a>
+            </div>
+
+            <div class="card">
+                <h3>Find NGOs</h3>
+                <p>Locate trusted NGOs near you.</p>
+                <a href="/find_ngos" class="btn">View NGOs</a>
+            </div>
+
+            <div class="card">
+                <h3>My Donations</h3>
+                <p>Track your past food donations.</p>
+                <a href="/my_donations" class="btn">Check</a>
+            </div>
+
+            <div class="card">
+                <h3>Profile</h3>
+                <p>View or edit your account details.</p>
+                <a href="/profile" class="btn">Open Profile</a>
+            </div>
+
+            <div class="card">
+                <h3>Donations Status</h3>
+                <p>Track your past food donations.</p>
+                <a href="/donations_status" class="btn">Check</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleSidebar() {
+        let sidebar = document.getElementById("sidebar");
+        let content = document.getElementById("content");
+        let topbar = document.getElementById("topbar");
+
+        if (sidebar.style.left === "-250px") {
+            sidebar.style.left = "0";
+            content.style.marginLeft = "250px";
+            topbar.style.marginLeft = "250px";
+        } else {
+            sidebar.style.left = "-250px";
+            content.style.marginLeft = "0";
+            topbar.style.marginLeft = "0";
+        }
+    }
+</script>
+
+</body>
+</html>

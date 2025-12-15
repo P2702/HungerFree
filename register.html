@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <title>Register</title>
+
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: url("Images/foodbg.jpg") no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    .register-box {
+        width: 380px;
+        margin: 80px auto;
+
+        /* MORE transparent */
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+
+        padding: 30px;
+        border-radius: 18px;
+
+        box-shadow: 0px 4px 15px rgba(49, 73, 59, 0.35);
+    }
+
+    /* Headings */
+    .register-box h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #0c3635;
+        font-weight: 900;
+    }
+
+    /* Labels */
+    .register-box label {
+        color: #436b62;
+        font-weight: 600;
+        margin-bottom: 2px;
+        display: block;
+    }
+
+    /* Inputs */
+    .register-box input {
+        width: 100%;
+        height: 40px;
+        padding-left: 10px;
+
+        border-radius: 6px;
+        border: 2px solid #31493b;
+
+        background: rgba(255, 255, 255, 0.20);
+        color: #0c3635;
+        margin-bottom: 5px; /* MUCH smaller gap */
+    }
+
+    .register-box input::placeholder {
+        color: #31493b;
+        opacity: 0.8;
+    }
+
+    .register-box input:focus {
+        outline: none;
+        border-color: #436b62;
+        box-shadow: 0px 0px 6px #436b62;
+    }
+
+    /* Error message spacing fixed */
+    small {
+        margin: -8px 0 8px 2px;
+        display: block;
+        font-size: 13px;
+    }
+
+    small[style*="display: none"] {
+        margin: 0;
+    }
+
+    /* Buttons */
+    .register-box button {
+        width: 100%;
+        height: 42px;
+        font-size: 17px;
+        background-color: #436b62;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .register-box button:hover {
+        background-color: #0c3635;
+    }
+
+    </style>
+</head>
+<body>
+
+<form id="regForm" action="http://127.0.0.1:5000/submit_register" method="post" autocomplete="off">
+    <div class="register-box">
+
+        <h1>Hungerfree</h1>
+
+        <label>Full Name</label>
+        <input type="text" id="name" name="Name" placeholder="Enter Full Name" required>
+        <small id="nameError" style="color:red; display:none;">Name cannot contain numbers.</small>
+
+        <label>Email</label>
+        <input type="email" id="email" name="Email" placeholder="Enter Email" required>
+        <small id="emailError" style="color:red; display:none;">Email must contain @gmail.com</small>
+
+        <label>Password</label>
+        <input type="password" id="password" name="Password" placeholder="Enter Password" required>
+        <small id="passwordError" style="color:red; display:none;">
+            Password must be 6+ chars, include uppercase, lowercase & a number.
+        </small>
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirm" name="Confirm" placeholder="Re-enter Password" required>
+        <small id="confirmError" style="color:red; display:none;">Passwords do not match.</small>
+
+        <button type="submit">Register</button>
+
+        <p style="margin-top: 10px;">Already have an account? <a href="Login.html">Login</a></p>
+
+    </div>
+</form>
+
+<script>
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+        let valid = true;
+
+        // NAME VALIDATION — no numbers allowed
+        let name = document.getElementById("name").value;
+        if (/\d/.test(name)) { 
+            document.getElementById("nameError").style.display = "block";
+            valid = false;
+        } else {
+            document.getElementById("nameError").style.display = "none";
+        }
+
+        // EMAIL VALIDATION — must include @
+        let email = document.getElementById("email").value;
+        if (!email.includes("@gmail.com")) {
+            document.getElementById("emailError").style.display = "block";
+            valid = false;
+        } else {
+            document.getElementById("emailError").style.display = "none";
+        }
+
+        // PASSWORD VALIDATION
+        let password = document.getElementById("password").value;
+        let passRules =
+            password.length >= 6 &&
+            /[A-Z]/.test(password) &&
+            /[a-z]/.test(password) &&
+            /[0-9]/.test(password);
+
+        if (!passRules) {
+            document.getElementById("passwordError").style.display = "block";
+            valid = false;
+        } else {
+            document.getElementById("passwordError").style.display = "none";
+        }
+
+        // CONFIRM PASSWORD VALIDATION
+        let confirm = document.getElementById("confirm").value;
+        if (password !== confirm) {
+            document.getElementById("confirmError").style.display = "block";
+            valid = false;
+        } else {
+            document.getElementById("confirmError").style.display = "none";
+        }
+
+        // STOP form from submitting if invalid
+        if (!valid) {
+            e.preventDefault();
+        }
+        window.onload = function() {
+        document.getElementById("regForm").reset();
+    };
+    });
+</script>
+
+</body>
+</html>

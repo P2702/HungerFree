@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Donations</title>
+
+    <style>
+         body {
+        margin: 0;
+        padding: 0;
+        background: url("/static/Images/foodbg.jpg") no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+        .page-wrapper {
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(8px);
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+         #sidebar {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        background: rgba(47, 107, 87, 0.95);
+        padding-top: 20px;
+        transition: 0.3s;
+        box-shadow: 2px 0px 10px rgba(0,0,0,0.3);
+        z-index: 10;
+    }
+
+    #sidebar h2 {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        margin: 0 0 30px 0;
+        padding: 15px 20px;
+        background: rgba(255,255,255,0.1);
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+        letter-spacing: 1px;
+    }
+
+    #sidebar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    #sidebar a:hover {
+        background: rgba(0,0,0,0.2);
+    }
+        /* Top Bar */
+        .topbar {
+            background: #d7f0e5;
+            padding: 10px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 3px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: 0.3s;
+            z-index: 5;
+        }
+
+        .menu-btn {
+            font-size: 26px;
+            margin-right: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #0c3635;
+        }
+
+        #content {
+            transition: 0.3s;
+            padding: 30px;
+            padding-top: 100px;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background: rgba(255,255,255,0.85);
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        table th {
+            background: #2f6b57;
+            color: white;
+        }
+
+        .no-records {
+            text-align: center;
+            padding: 20px;
+            font-size: 20px;
+            color: #0c3635;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2><center>Dashboard</center></h2>
+        <a href="/homepage">Home</a>
+        <a href="/donate_food">Donate Food</a>
+        <a href="/find_ngos">Find NGOs</a>
+        <a href="/my_donations">My Donations</a>
+        <a href="/profile">Profile</a>
+        <a href="/contact">Contact</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="topbar" id="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+        My Donation History
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <div class="table-container">
+
+            {% if donations|length == 0 %}
+            <div class="no-records">No donations yet.</div>
+            {% else %}
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone No.</th>
+                    <th>Location</th>
+                    <th>Food Type</th>
+                    <th>Notes</th>
+                    <th>Quantity</th>
+                    
+                </tr>
+
+                {% for d in donations %}
+                <tr>
+                    <td>{{ d[0] }}</td>  <!-- donor_name -->
+                    <td>{{ d[1] }}</td>
+                    <td>{{ d[2] }}</td>  <!-- donor_phone -->
+                    <td>{{ d[3] }}</td>  <!-- food_type -->
+                    <td>{{ d[5] }}</td>  <!-- quantity -->
+                    <td>{{ d[4] }}</td>  <!-- address -->
+                    <td>{{ d[6] }}</td>  <!-- notes -->
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleSidebar() {
+        let sidebar = document.getElementById("sidebar");
+        let content = document.getElementById("content");
+        let topbar = document.getElementById("topbar");
+
+        if (sidebar.style.left === "-250px") {
+            sidebar.style.left = "0";
+            content.style.marginLeft = "250px";
+            topbar.style.marginLeft = "250px";
+        } else {
+            sidebar.style.left = "-250px";
+            content.style.marginLeft = "0";
+            topbar.style.marginLeft = "0";
+        }
+    }
+</script>
+
+</body>
+</html>

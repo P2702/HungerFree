@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Dashboard — Hungerfree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("/static/Images/foodbg.jpg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .page-wrapper {
+            background: rgba(255,255,255,0.05);
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            background: rgba(47,107,87,0.95);
+            padding-top: 20px;
+            transition: 0.3s;
+            box-shadow: 2px 0px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        #sidebar h2 { color: white; text-align: center; }
+        #sidebar a { display: block; padding: 15px 20px; font-size: 18px; color: white; text-decoration: none; }
+        #sidebar a:hover { background: rgba(0,0,0,0.2); }
+
+        /* Topbar */
+        .topbar {
+            background: #d7f0e5;
+            padding: 10px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 5;
+        }
+
+        .menu-btn { cursor: pointer; font-size: 24px; margin-right: 16px; }
+        .spacer { flex: 1; }
+        .logout-link { text-decoration:none; color:#0c3635; font-weight:600; }
+
+        /* Content */
+        #content { padding: 26px; padding-top: 82px; transition: margin-left 0.3s; }
+
+        h2.panel-title { color:#0c3635; margin-bottom:10px; }
+
+        /* Cards */
+        .cards { display: flex; flex-wrap: wrap; gap: 20px; }
+        .card {
+            flex: 1 1 300px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(8px);
+        }
+        .card h3 { margin-top:0; color:#0c3635; font-size:20px; }
+        .card p { color:#31493b; font-size:14px; margin-bottom:10px; }
+
+        .card table { width:100%; border-collapse: collapse; }
+        .card table th, .card table td {
+            border:1px solid #ddd; padding:8px; text-align:left; font-size:13px;
+        }
+        .card table th { background:#2f6b57; color:white; }
+
+        .btn {
+            padding: 8px 14px;
+            margin:2px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:13px;
+            color:white;
+        }
+        .approve { background:#28a745; }
+        .reject { background:#dc3545; }
+
+        /* Responsive */
+        @media(max-width:768px) {
+            .cards { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="/admin">Dashboard</a>
+        <a href="/admin/users">Users</a>
+        <a href="/admin/donations">Donations</a>
+        <a href="/admin/ngos">NGOs</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+        Admin Dashboard
+        <span class="spacer"></span>
+        <a href="/logout" class="logout-link">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <h2 class="panel-title">Welcome, Admin</h2>
+
+        <div class="cards">
+            <!-- Users Card -->
+            <div class="card">
+                <h3>Users</h3>
+                <p>List of registered users</p>
+                <table>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Email</th><th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1</td><td>Priyanka</td><td>priyanka@example.com</td>
+                        <td>
+                            <button class="btn approve">Edit</button>
+                            <button class="btn reject">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>Rahul</td><td>rahul@example.com</td>
+                        <td>
+                            <button class="btn approve">Edit</button>
+                            <button class="btn reject">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Donations Card -->
+            <div class="card">
+                <h3>Donations</h3>
+                <p>Approve or reject donations</p>
+                <table>
+                    <tr>
+                        <th>ID</th><th>User</th><th>Food</th><th>Status</th><th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>101</td><td>Priyanka</td><td>2 Boxes</td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="btn approve">Approve</button>
+                            <button class="btn reject">Reject</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td><td>Rahul</td><td>5 Meals</td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="btn approve">Approve</button>
+                            <button class="btn reject">Reject</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- NGOs Card -->
+            <div class="card">
+                <h3>NGOs</h3>
+                <p>Manage NGO locations</p>
+                <table>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Location</th><th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td><td>Annapurna Food Bank</td><td>Kothrud</td>
+                        <td>
+                            <button class="btn approve">Edit</button>
+                            <button class="btn reject">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>Helping Hands NGO</td><td>Shivajinagar</td>
+                        <td>
+                            <button class="btn approve">Edit</button>
+                            <button class="btn reject">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function toggleSidebar() {
+    const sb = document.getElementById('sidebar');
+    const isOpen = sb.style.left === "0px";
+    sb.style.left = isOpen ? "-250px" : "0";
+}
+</script>
+</body>
+</html>

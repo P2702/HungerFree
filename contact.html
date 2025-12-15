@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us – HungerFree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("/static/Images/foodbg.jpg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .page-wrapper {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: rgba(47,107,87,0.95);
+            padding-top: 20px;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        #sidebar a {
+            display: block;
+            padding: 14px 22px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        #sidebar a:hover {
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* Topbar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #d7f0e5;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1100;
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .spacer { flex: 1; }
+
+        .logout {
+            text-decoration: none;
+            color: #0c3635;
+            font-weight: bold;
+        }
+
+        /* Content */
+        #content {
+            padding: 30px;
+            padding-top: 90px;
+            transition: 0.3s;
+        }
+
+        .card {
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #0c3635;
+            text-align: center;
+        }
+
+        .info {
+            margin-top: 20px;
+            line-height: 1.8;
+            color: #244435;
+            font-size: 16px;
+        }
+
+        .info b {
+            color: #0c3635;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <a href="/homepage">Home</a>
+        <a href="/donate_food">Donate Food</a>
+        <a href="/my_donations">My Donations</a>
+        <a href="/find_ngos">Find NGOs</a>
+        <a href="/profile">Profile</a>
+        <a href="/contact">Contact</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+        Contact Us
+        <span class="spacer"></span>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+        <div class="card">
+            <h2>Get in Touch</h2>
+
+            <div class="info">
+                <p><b>Project Name:</b> HungerFree – Food Donation Management System</p>
+                <p><b>Email:</b> hungerfree.support@gmail.com</p>
+                <p><b>Phone:</b> +91 98765 43210</p>
+                <p><b>Address:</b> Pune, Maharashtra, India</p>
+
+                <p>
+                    HungerFree is a platform that connects food donors with NGOs
+                    to reduce food wastage and help people in need.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+
+    if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+        content.style.marginLeft = "0";
+    } else {
+        sidebar.style.left = "0px";
+        content.style.marginLeft = "250px";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile – HungerFree</title>
+    <style>
+        body{margin:0;font-family:Arial;background: url("/static/Images/foodbg.jpg") no-repeat center center fixed;background:#eef6f2}
+        .card{max-width:700px;margin:60px auto;background:#fff;padding:20px;border-radius:12px}
+        img{width:120px;border-radius:50%}
+        label{font-weight:bold;margin-top:10px;display:block}
+        input,textarea{width:100%;padding:10px;margin-top:6px}
+        button{background:#2f6b57;color:#fff;border:none;padding:10px 16px;margin-top:12px;border-radius:8px}
+        .link{color:#2f6b57;cursor:pointer;text-decoration:underline;margin-top:10px;display:inline-block}
+        #changePass{display:none}
+        .hash{font-family:monospace;font-size:13px;background:#f4f4f4;padding:8px;border-radius:6px}
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <center>
+        <!-- FIXED IMAGE PATH -->
+        <img src="/static/Images/profile.png" alt="Profile Photo">
+        <h2>Your Profile</h2>
+    </center>
+
+    <form method="POST" action="/update_profile">
+
+        <label>Name</label>
+        <input name="name" value="{{ name }}">
+
+        <label>Email</label>
+        <input name="email" value="{{ email }}">
+
+        <label>About</label>
+        <textarea name="about">{{ about }}</textarea>
+
+        <hr>
+
+        <!-- SHOW HASHED PASSWORD -->
+        <label>Password (Encrypted)</label>
+        <div class="hash">{{ password }}</div>
+
+        <!-- TOGGLE LINK -->
+        <span class="link" onclick="togglePassword()">Forgot / Change Password?</span>
+
+        <!-- HIDDEN PASSWORD CHANGE -->
+        <div id="changePass">
+            <label>Current Password</label>
+            <input type="password" name="current_password">
+
+            <label>New Password</label>
+            <input type="password" name="new_password">
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+<script>
+function togglePassword(){
+    const box = document.getElementById("changePass");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
